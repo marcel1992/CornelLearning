@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include <algorithm>
+
 using namespace std;
 
 class Agenda
@@ -18,9 +20,28 @@ int main()
 {
 	Agenda agenda;
 	string rawYear; //an citit sub form de string
+	string rawName; // nume citit fara a verifica daca are numere
+	bool isDigit; //verificam daca este numar sau nu
 
-	cout << "Introduceti numele:\n";
-	cin >> agenda.Name;
+
+	// pun partea asta intr-un do...while deoarce eu trebuie sa cer utilizatorului sa introduca numele corect fara numere 
+	do
+	{
+		cout << "Introduceti numele:\n";
+		cin >> rawName;
+
+		/* functia any_of primeste 3 parametri
+			1. De la primul caracter sa inceapa verificare
+			2. Ultimul caracter pana la care sa faca verficarea
+			3. Ce valoarea sa intoarca, in cazul de fata acel isdigit va intoarce true sau false pentru ca verifica daca sunt numere sau nu
+
+		*/
+		isDigit = any_of(rawName.begin(), rawName.end(), ::isdigit);
+
+	} while (isDigit == true);//iese din bucla asta cand isDigit = false, adica cand nu sunt introduse numere in rawName
+
+	agenda.Name = rawName;
+
 	cout << "Introduceti prenumele:\n";
 	cin >> agenda.Surname;
 	cout << "Introduceti varsta:\n";
